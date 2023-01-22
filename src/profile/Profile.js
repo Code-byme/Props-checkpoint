@@ -2,6 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 function Profile(props) {
+    const [show, setShow] = React.useState(false)
+    function clicked(){
+        setShow(!show)
+    }
     const { fullName, bio, profession, handleName } = props
     const Css = {
         color: "white",
@@ -11,19 +15,21 @@ function Profile(props) {
     };
   return (
     <div style={Css}>
-        <h1 onClick={() => handleName(fullName)}>{fullName}</h1>
+        {show ? <div> <h1 onClick={() => handleName(fullName)}>{fullName}</h1>
             <p>{bio}</p>
             <p>{profession}</p>
             {props.children}
+            <button onClick={()=>clicked()}>Click me</button> </div> : <div><button onClick={()=>clicked()}>Click me</button></div>}
+        
 
         </div>
   )
 }
 Profile.propTypes = {
-    fullName: PropTypes.string.isRequired,
+    fullName: PropTypes.string,
     bio: PropTypes.string,
     profession: PropTypes.string,
-    handleName: PropTypes.func.isRequired,
+    handleName: PropTypes.func,
     children: PropTypes.node
 }
 
